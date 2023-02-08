@@ -22,6 +22,9 @@ preOrderDisplay(tree(R,LST,RST)) :- integer(R),write(R),preOrderDisplay(LST),pre
 
 /*If item is greater than root*/
 insert(tree(Root,Left,Right),X,R) :- X > Root,insert(Right,X,R1),R = tree(Root,Left,R1).
-insert(tree(empty),X,tree(X,tree(empty),tree(empty))). 
+/*If item is less than root*/
+insert(tree(Root,Left,Right),X,R) :- X < Root,insert(Left,X,R1),R = tree(Root,R1,Right). 
 /*If item is already in tree*/
 insert((Root,Left,Right),Root,(Root,Left,Right)).
+/*Spot to enter has been found*/
+insert(tree(empty),X,tree(X,tree(empty),tree(empty))).
