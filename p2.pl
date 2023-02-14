@@ -85,3 +85,19 @@ getMin(tree(Root,tree(empty),_),R) :- write(Root), R = Root.
 getMax(tree(empty),-1).
 getMax(tree(_,_,Right),R) :- isNotEmpty(Right), getMax(Right,R).
 getMax(tree(Root,_,tree(empty)),R) :- R = Root.
+
+/*delete/3
+First argument is a BST and the second argument is an integer 
+x. Uses recursion to delete the tree node containing data value 
+x, if it exists, and adjusts nodes so that the tree remains a 
+BST, which is then matched with the third argument. If the tree 
+does not contain x, the third argument is matched with the tree 
+unchanged. Uses the predicate getMin.*/
+
+delete(tree(R,LST,_),X,R1) :- X < R, delete(LST,X,R1).
+delete(tree(R,_,RST),X,R1) :- X > R, delete(RST,X,R1).
+delete(tree(R,_,_),R,R1) :- R1 = R. 
+/*if tree is empty return -1*/
+delete(tree(empty),_,-1).  
+
+go(Infile) :- treeRead(Infile,R), insert(R,11,R1), preOrderDisplay(R1).
